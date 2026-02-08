@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Accept My Proposal?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #d32f2f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        /* Flower bouquet container */
+        .bouquet-container {
+            position: relative;
+            height: 350px;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        
+        .vase {
+            width: 150px;
+            height: 100px;
+            background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+            border-radius: 10px 10px 30px 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .vase::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            right: 10px;
+            height: 40px;
+            background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        /* Flower stems */
+        .stem {
+            position: absolute;
+            bottom: 100px;
+            width: 6px;
+            background: linear-gradient(to top, #2e7d32, #4caf50);
+            border-radius: 3px;
+            z-index: 0;
+        }
+        
+        .stem-1 { left: 48%; height: 200px; transform: rotate(-5deg); }
+        .stem-2 { left: 49%; height: 220px; }
+        .stem-3 { left: 50%; height: 240px; transform: rotate(5deg); }
+        .stem-4 { left: 47%; height: 180px; transform: rotate(-10deg); }
+        .stem-5 { left: 51%; height: 190px; transform: rotate(8deg); }
+        
+        /* Flowers */
+        .flower {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            animation: bloom 4s forwards;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+        
+        .flower-1 {
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle at 30% 30%, #ff4081, #d81b60);
+            top: 100px;
+            left: 46%;
+            animation-delay: 1s;
+        }
+        
+        .flower-2 {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #ffeb3b, #fdd835);
+            top: 80px;
+            left: 49%;
+            animation-delay: 2s;
+        }
+        
+        .flower-3 {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #7b1fa2, #4a148c);
+            top: 60px;
+            left: 51%;
+            animation-delay: 3s;
+        }
+        
+        .flower-4 {
+            width: 65px;
+            height: 65px;
+            background: radial-gradient(circle at 30% 30%, #03a9f4, #0277bd);
+            top: 120px;
+            left: 44%;
+            animation-delay: 1.5s;
+        }
+        
+        .flower-5 {
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle at 30% 30%, #4caf50, #2e7d32);
+            top: 90px;
+            left: 53%;
+            animation-delay: 2.5s;
+        }
+        
+        .flower-center {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 2;
+        }
+        
+        .petal {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        
+        /* Animated character */
+        .character-container {
+            position: absolute;
+            bottom: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            width: 120px;
+            height: 150px;
+        }
+        
+        .character {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            margin: 0 auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .character-head {
+            width: 60px;
+            height: 60px;
+            background: #ffccbc;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 20px;
+            z-index: 2;
+        }
+        
+        .character-eye {
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+        }
+        
+        .eye-left { left: 15px; }
+        .eye-right { right: 15px; }
+        
+        .character-mouth {
+            width: 30px;
+            height: 10px;
+            border-radius: 0 0 20px 20px;
+            background: #d32f2f;
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            animation: smile 2s infinite;
+        }
+        
+        .character-body {
+            width: 80px;
+            height: 70px;
+            background: #2196f3;
+            border-radius: 40px;
+            position: absolute;
+            top: 55px;
+            left: 10px;
+            z-index: 1;
+        }
+        
+        .character-arm {
+            width: 50px;
+            height: 15px;
+            background: #ffccbc;
+            border-radius: 10px;
+            position: absolute;
+            top: 70px;
+        }
+        
+        .arm-left {
+            left: -30px;
+            transform: rotate(30deg);
+            animation: wave-left 2s infinite;
+        }
+        
+        .arm-right {
+            right: -30px;
+            transform: rotate(-30deg);
+            animation: wave-right 2s infinite;
+        }
+        
+        .character-leg {
+            width: 15px;
+            height: 50px;
+            background: #1976d2;
+            border-radius: 10px;
+            position: absolute;
+            top: 120px;
+        }
+        
+        .leg-left { left: 30px; }
+        .leg-right { right: 30px; }
+        
+        .heart {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            color: #ff4081;
+            font-size: 1.5rem;
+            animation: heartbeat 1.5s infinite;
+            z-index: 4;
+        }
+        
+        /* Question buttons */
+        .question-container {
+            margin: 40px 0;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .question {
+            font-size: 2.2rem;
+            color: #d32f2f;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 18px 50px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-width: 180px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-yes {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .btn-no {
+            background: linear-gradient(to right, #f44336, #c62828);
+            color: white;
+            position: relative;
+        }
+        
+        .btn-yes:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(to right, #66BB6A, #388E3C);
+        }
+        
+        .btn-no:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(244, 67, 54, 0.4);
+            background: linear-gradient(to right, #EF5350, #D32F2F);
+        }
+        
+        /* Floating petals */
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        /* Animations */
+        @keyframes bloom {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes smile {
+            0%, 100% { width: 30px; }
+            50% { width: 40px; }
+        }
+        
+        @keyframes wave-left {
+            0%, 100% { transform: rotate(30deg); }
+            50% { transform: rotate(40deg); }
+        }
+        
+        @keyframes wave-right {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(-40deg); }
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @keyframes float-petal {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .question {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+                min-width: 140px;
+            }
+            
+            .bouquet-container {
+                height: 300px;
+            }
+            
+            .character-container {
+                width: 100px;
+                height: 130px;
+            }
+            
+            .character {
+                width: 80px;
+                height: 130px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>A Special Question</h1>
+            <p class="subtitle">For someone very special in my life</p>
+        </div>
+        
+        <div class="bouquet-container">
+            <!-- Flower stems -->
+            <div class="stem stem-1"></div>
+            <div class="stem stem-2"></div>
+            <div class="stem stem-3"></div>
+            <div class="stem stem-4"></div>
+            <div class="stem stem-5"></div>
+            
+            <!-- Flowers -->
+            <div class="flower flower-1"></div>
+            <div class="flower flower-2"></div>
+            <div class="flower flower-3"></div>
+            <div class="flower flower-4"></div>
+            <div class="flower flower-5"></div>
+            
+            <!-- Vase -->
+            <div class="vase"></div>
+            
+            <!-- Animated character -->
+            <div class="character-container">
+                <div class="character">
+                    <div class="character-head">
+                        <div class="character-eye eye-left"></div>
+                        <div class="character-eye eye-right"></div>
+                        <div class="character-mouth"></div>
+                    </div>
+                    <div class="character-body"></div>
+                    <div class="character-arm arm-left"></div>
+                    <div class="character-arm arm-right"></div>
+                    <div class="character-leg leg-left"></div>
+                    <div class="character-leg leg-right"></div>
+                    <div class="heart"><i class="fas fa-heart"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="question-container">
+            <div class="question">Will you accept my proposal?</div>
+            <div class="buttons">
+                <button class="btn btn-yes" id="yesBtn">YES</button>
+                <button class="btn btn-no" id="noBtn">NO</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart" style="color:#ff4081"></i> for someone special</p>
+        </div>
+    </div>
+
+    <!-- Create floating petals -->
+    <div id="petals-container"></div>
+
+    <script>
+        // Create floating petals
+        function createPetals() {
+            const petalsContainer = document.getElementById('petals-container');
+            const colors = ['#ffebee', '#fce4ec', '#f3e5f5', '#e8eaf6', '#e3f2fd'];
+            
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.width = `${Math.random() * 20 + 10}px`;
+                petal.style.height = petal.style.width;
+                petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                petal.style.animation = `float-petal ${Math.random() * 10 + 10}s linear infinite`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                petalsContainer.appendChild(petal);
+            }
+        }
+        
+        // Button interactions
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            window.location.href = 'yes.html';
+        });
+        
+        document.getElementById('noBtn').addEventListener('click', function() {
+            // Move the NO button randomly
+            const button = this;
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+            
+            // Calculate random position within the container
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            button.style.position = 'absolute';
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+            
+            // Change text sometimes
+            const messages = [
+                "Are you sure?",
+                "Think again!",
+                "Really?",
+                "Please?",
+                "Give it another thought!",
+                "I'll be sad :(",
+                "Pretty please?",
+                "Last chance!"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            button.textContent = randomMessage;
+        });
+        
+        // Make NO button move on hover as well
+        document.getElementById('noBtn').addEventListener('mouseover', function() {
+            if (Math.random() > 0.5) {
+                const button = this;
+                const container = document.querySelector('.buttons');
+                const containerRect = container.getBoundingClientRect();
+                const buttonRect = button.getBoundingClientRect();
+                
+                const maxX = containerRect.width - buttonRect.width;
+                const maxY = containerRect.height - buttonRect.height;
+                
+                const randomX = Math.random() * maxX;
+                const randomY = Math.random() * maxY;
+                
+                button.style.position = 'absolute';
+                button.style.left = `${randomX}px`;
+                button.style.top = `${randomY}px`;
+            }
+        });
+        
+        // Initialize petals when page loads
+        window.addEventListener('load', createPetals);
+    </script>
+</body>
+</html>
